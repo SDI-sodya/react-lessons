@@ -1,38 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-// const htmlContainer = document.getElementById("root");
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
-// const root = ReactDOM.createRoot(htmlContainer);
-// const reactPar = React.createElement(
-// 	"p",
-// 	{ className: "text" },
-// 	"Hello from React!"
-// );
-
-// console.log(reactPar);
-
-// // const root = document.getElementById("root");
-
-// // const par = document.createElement("p");
-// // par.classList.add("text");
-// // par.textContent = "some text";
-
-// // root.append(par);
-
-// class Heading extends React.Component {
-// 	render() {
-// 		return <h1>Some heading</h1>;
-// 	}
-// }
-
-// function HeadingFunction() {
-// 	return <h1>Some heading func</h1>;
-// }
-
-// const headerComponent = <Heading />;
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(<App />);
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

@@ -1,36 +1,25 @@
-import Header from "./components/Header";
-import MainContent from "./components/MainContent";
-import "./App.css";
-import Phone from "./components/Phone";
-
-const user1 = {
-	name: "User",
-	lastName: "Userenko",
-};
-
-const user2 = {
-	name: "Test",
-	lastName: "Testenko",
-};
-
-const user3 = {
-	name: "John",
-	lastName: "Doe",
-};
-
-console.log(<Greetings user={user1} />);
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
-	return (
-		<>
-			<Header />
-			<MainContent />
-			<Greetings user={user1} />
-			<Greetings user={user2} />
-			<Greetings user={user3} />
-			<Phone color="black" price={15999.99} />
-		</>
-	);
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
 }
 
 export default App;
