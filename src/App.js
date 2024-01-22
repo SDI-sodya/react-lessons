@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import LoginForm from "./components/LoginForm";
+import Slider from "./components/Slider";
+import UserLoader from "./components/UserLoader";
+
 // import { format, addSeconds, add } from "date-fns";
 
-class StopWatch extends Component {
+class App extends Component {
 	constructor(props) {
 		super(props);
 
@@ -40,14 +42,16 @@ class StopWatch extends Component {
 		// const timeText = format(date, "HH:mm:ss");
 
 		return (
-			<div>
-				<LoginForm />
+			<>
+				<UserLoader />
+				{/* <Slider /> */}
+				{/* <LoginForm /> */}
 				{/* <p>{timeText}</p>
 				<button onClick={this.start}>Start</button>
 				<button onClick={this.stop}>Stop</button> */}
-			</div>
+			</>
 		);
 	}
 }
 
-export default StopWatch;
+export default App;
