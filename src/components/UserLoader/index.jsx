@@ -8,15 +8,17 @@ class UserLoader extends Component {
 			users: [],
 			isError: false,
 			isLoading: false,
+			currentPage: 1,
 		};
 	}
 
 	componentDidMount() {
+		const { currentPage } = this.state;
 		this.setState({
 			isLoading: true,
 		});
 
-		fetch("https://randomuser.me/api/?results=20&seed=test&page=1")
+		fetch(`https://randomuser.me/api/?results=20&seed=test&page=${currentPage}`)
 			.then((res) => res.json())
 			.then((data) => {
 				// console.log(data);
@@ -36,6 +38,51 @@ class UserLoader extends Component {
 				});
 			});
 	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.currentPage !== this.state.currentPage) {
+			const { currentPage } = this.state;
+			this.setState({
+				isLoading: true,
+			});
+
+			fetch(
+				`https://randomuser.me/api/?results=20&seed=test&page=${currentPage}`
+			)
+				.then((res) => res.json())
+				.then((data) => {
+					// console.log(data);
+
+					this.setState({
+						users: data.results,
+					});
+				})
+				.catch((err) => {
+					this.setState({
+						isError: true,
+					});
+				})
+				.finally(() => {
+					this.setState({
+						isLoading: false,
+					});
+				});
+		}
+	}
+
+	handleNextPage = () => {
+		const { currentPage } = this.state;
+		this.setState({
+			currentPage: currentPage + 1,
+		});
+	};
+
+	handlePrevPage = () => {
+		const { currentPage } = this.state;
+		this.setState({
+			currentPage: currentPage > 1 ? currentPage - 1 : 1,
+		});
+	};
 
 	render() {
 		const { users, isError, isLoading } = this.state;
@@ -59,7 +106,15 @@ class UserLoader extends Component {
 			)
 		);
 
-		return <div>{userCards}</div>;
+		return (
+			<div>
+				<div>
+					<button onClick={this.handlePrevPage}>Prev</button>
+					<button onClick={this.handleNextPage}>Next</button>
+				</div>
+				{userCards}
+			</div>
+		);
 	}
 }
 
