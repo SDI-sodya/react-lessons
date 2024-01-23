@@ -12,76 +12,51 @@ class UserLoader extends Component {
 		};
 	}
 
-	componentDidMount() {
+	load = async () => {
 		const { currentPage } = this.state;
 		this.setState({
 			isLoading: true,
 		});
 
-		fetch(`https://randomuser.me/api/?results=20&seed=test&page=${currentPage}`)
-			.then((res) => res.json())
-			.then((data) => {
-				// console.log(data);
+		try {
+			const res = await fetch(
+				`https://randomuser.me/api/?results=20&seed=test&page=${currentPage}`
+			);
 
-				this.setState({
-					users: data.results,
-				});
-			})
-			.catch((err) => {
-				this.setState({
-					isError: true,
-				});
-			})
-			.finally(() => {
-				this.setState({
-					isLoading: false,
-				});
+			const { results } = await res.json();
+
+			this.setState({ users: results });
+		} catch (error) {
+			this.setState({ isError: true });
+		} finally {
+			this.setState({
+				isLoading: false,
 			});
+		}
+	};
+
+	componentDidMount() {
+		this.load();
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.currentPage !== this.state.currentPage) {
-			const { currentPage } = this.state;
-			this.setState({
-				isLoading: true,
-			});
-
-			fetch(
-				`https://randomuser.me/api/?results=20&seed=test&page=${currentPage}`
-			)
-				.then((res) => res.json())
-				.then((data) => {
-					// console.log(data);
-
-					this.setState({
-						users: data.results,
-					});
-				})
-				.catch((err) => {
-					this.setState({
-						isError: true,
-					});
-				})
-				.finally(() => {
-					this.setState({
-						isLoading: false,
-					});
-				});
+			this.load();
 		}
 	}
 
-	handleNextPage = () => {
+	handleChangePage = (isNext) => {
 		const { currentPage } = this.state;
-		this.setState({
-			currentPage: currentPage + 1,
-		});
-	};
 
-	handlePrevPage = () => {
-		const { currentPage } = this.state;
-		this.setState({
-			currentPage: currentPage > 1 ? currentPage - 1 : 1,
-		});
+		if (isNext) {
+			this.setState({
+				currentPage: currentPage + 1,
+			});
+		} else {
+			this.setState({
+				currentPage: currentPage > 1 ? currentPage - 1 : 1,
+			});
+		}
 	};
 
 	render() {
@@ -96,8 +71,12 @@ class UserLoader extends Component {
 		}
 
 		const userCards = users.map(
-			({ name: { first, last }, picture: { thumbnail: src }, login: uuid }) => (
-				<article>
+			({
+				name: { first, last },
+				picture: { thumbnail: src },
+				login: { uuid },
+			}) => (
+				<article key={uuid}>
 					<h2>
 						{first} {last}
 					</h2>
@@ -109,8 +88,8 @@ class UserLoader extends Component {
 		return (
 			<div>
 				<div>
-					<button onClick={this.handlePrevPage}>Prev</button>
-					<button onClick={this.handleNextPage}>Next</button>
+					<button onClick={() => this.handleChangePage(false)}>Prev</button>
+					<button onClick={() => this.handleChangePage(true)}>Next</button>
 				</div>
 				{userCards}
 			</div>
