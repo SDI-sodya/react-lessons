@@ -1,0 +1,12 @@
+.container {
+  border: 1px solid #000;
+  padding: 10px;
+}
+
+.bigBorder {
+  border-width: 5px;
+}
+
+.redBorder {
+  border-color: red;
+}
