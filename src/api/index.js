@@ -1,9 +1,26 @@
-export async function getUsers(currentPage) {
-	const res = await fetch(
-		`https://randomuser.me/api/?results=20&seed=test&page=${currentPage}`
-	);
+import queryString from "query-string";
+import CONFIG from "../configs";
 
-	const { results } = await res.json();
+export async function getUsers(options = {}) {
+	const defaultOptions = {
+		page: 1,
+		results: CONFIG.DEFAULT_AMOUNT,
+		format: "json",
+		seed: CONFIG.API_KEY,
+		nat: "gb",
+		inc: CONFIG.DEFAULT_USER_DATA,
+	};
 
-	return results;
+	const finalOptions = {
+		...defaultOptions,
+		...options,
+	};
+
+	const query = queryString.stringify(finalOptions);
+
+	const res = await fetch(`${CONFIG.BASE_URL}?${query}`);
+
+	const { results: users } = await res.json();
+
+	return users;
 }
