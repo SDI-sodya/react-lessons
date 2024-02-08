@@ -1,6 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
+
+const initialState = {
+	number: 0,
+	coords: {
+		x: 0,
+		y: 0,
+	},
+};
 
 const HardState = (props) => {
+	const [state, dispatch] = useReducer(reducer, initialState);
+
+	function reducer(state, action) {
+		const newState = { ...state };
+		return newState;
+	}
+
 	const [coords, setCoords] = useState({ x: 0, y: 0 });
 	const [number, setNumbers] = useState(1);
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import TreeLvl1 from "./TreeL1";
 
-class Index extends Component {
+class DeepTree extends Component {
 	constructor(props) {
 		super(props);
 
@@ -9,7 +10,13 @@ class Index extends Component {
 		};
 	}
 
+	handleUniverseDestruction = () => {
+		alert("But why");
+	};
+
 	render() {
+		const { user } = this.props;
+
 		return (
 			<div
 				style={{
@@ -18,9 +25,15 @@ class Index extends Component {
 				}}
 			>
 				<h1>DeepTree</h1>
+				<TreeLvl1
+					data={this.state.data}
+					handleClick={this.handleUniverseDestruction}
+					style={{ color: "red" }}
+					children={<p>Magic</p>}
+				/>
 			</div>
 		);
 	}
 }
 
-export default Index;
+export default DeepTree;

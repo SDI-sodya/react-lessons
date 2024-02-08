@@ -4,6 +4,7 @@ import Slider from "./components/Slider";
 import { BrowserRouter, Switch } from "react-router-dom";
 import { Route } from "react-router-dom/cjs/react-router-dom.min";
 import HardState from "./components/HardState";
+import BasicReducerComponent from "./components/HardState/BasicReducerComponent";
 // import UserLoader from "./components/UserLoader";
 
 // import { format, addSeconds, add } from "date-fns";
@@ -57,6 +58,7 @@ class App extends Component {
 		return (
 			<>
 				<BrowserRouter>
+					<BasicReducerComponent />
 					{/*завжди малюэться*/}
 					<h1>not header</h1>
 					{/* малювати за умовою, повёзаною з URL */}
